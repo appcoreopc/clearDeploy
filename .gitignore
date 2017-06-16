@@ -2,3 +2,4 @@ Lib/*
 Include/*
 Scripts/*
 tcl/*
+src/clearDeploy/clearDeploy/__pycache__/*
