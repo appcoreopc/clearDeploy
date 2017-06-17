@@ -17,13 +17,21 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework import routers
 from clearDeployApi import views
+from rest_framework.urlpatterns import format_suffix_patterns
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'groups', views.GroupViewSet)
 
+
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^', include(router.urls)),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    #url(r'^admin/', admin.site.urls),
+    #url(r'^', include(router.urls)),
+    #url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    #url(r'^/test/product/', views.view1),
+    #url(r'^/test/product/search/', views.view2),
+    url(r'^deploy/$', views.SimpleDeployer.as_view()),
+    url(r'^deploy/simple/$', views.SimpleDeployer.as_view())
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)
