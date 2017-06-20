@@ -30,8 +30,11 @@ urlpatterns = [
     #url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     #url(r'^/test/product/', views.view1),
     #url(r'^/test/product/search/', views.view2),
-    url(r'^deploy/$', views.SimpleDeployer.as_view()),
-    url(r'^deploy/simple/$', views.SimpleDeployer.as_view())
+    url(r'^$', views.api_root),
+    url(r'^deploy/highlight/$', views.SnippetHighlight.as_view()),
+    url(r'^deploy/$', views.SimpleDeployer.as_view(), name='deploy-list'),
+    url(r'^deploy/simple/$', views.SimpleDeployer.as_view(), name='simple-list'),
+    url(r'^deploy/accesskey/$', views.AccessKey.as_view())
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

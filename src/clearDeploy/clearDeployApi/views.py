@@ -10,6 +10,10 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework import generics
+from rest_framework import renderers
+
+from rest_framework.reverse import reverse
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -38,6 +42,52 @@ class SimpleDeployer(APIView):
 
     def put(self, request, format=None):
         return Response('Simple Deployer')
+
+class AccessKey(generics.GenericAPIView):
+    renderer_classes = (renderers.StaticHTMLRenderer,)
+
+    def get(self, request, format=None):
+        return Response('Access  Key')
+
+    def post(self, request, format=None):
+        return Response('Access  Key')
+
+    def put(self, request, format=None):
+        return Response('Access  Key')
+
+# For our root API 
+@api_view(['GET'])
+def api_root(request, format=None):
+    return Response({
+        'deploy': reverse('deploy-list', request=request, format=format),
+        'simple': reverse('simple-list', request=request, format=format)
+    })
+
+
+class SnippetHighlight(generics.GenericAPIView):
+    renderer_classes = (renderers.StaticHTMLRenderer,)
+
+    def get(self, request, *args, **kwargs):
+        #snippet = self.get_object()
+        return Response("test")
+
+
+
+# class SimpleDeployer(APIView):
+#     """
+#      Deploye 
+#     """
+#     def get(self, request, format=None):
+#         return Response('Simple Deployer')
+
+#     def post(self, request, format=None):
+#         return Response('Simple Deployer')
+
+#     def put(self, request, format=None):
+#         return Response('Simple Deployer')
+
+
+
 
 #  @api_view(['GET', 'PUT', 'DELETE'])
 #  def view1(request, format=None):
