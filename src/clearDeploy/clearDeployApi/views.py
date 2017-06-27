@@ -15,6 +15,7 @@ from rest_framework import renderers
 
 from rest_framework.reverse import reverse
 
+
 class UserViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
@@ -30,18 +31,21 @@ class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
 
+
 class SimpleDeployer(APIView):
     """
      Deploye 
     """
+
     def get(self, request, format=None):
-        return Response('Simple Deployer')
+        return Response('GET Simple Deployer')
 
     def post(self, request, format=None):
-        return Response('Simple Deployer')
+        return Response('POST Simple Deployer')
 
     def put(self, request, format=None):
-        return Response('Simple Deployer')
+        return Response('PUT Simple Deployer')
+
 
 class AccessKey(generics.GenericAPIView):
     renderer_classes = (renderers.StaticHTMLRenderer,)
@@ -55,7 +59,8 @@ class AccessKey(generics.GenericAPIView):
     def put(self, request, format=None):
         return Response('Access  Key')
 
-# For our root API 
+# For our root API
+
 @api_view(['GET'])
 def api_root(request, format=None):
     return Response({
@@ -70,37 +75,3 @@ class SnippetHighlight(generics.GenericAPIView):
     def get(self, request, *args, **kwargs):
         #snippet = self.get_object()
         return Response("test")
-
-
-
-# class SimpleDeployer(APIView):
-#     """
-#      Deploye 
-#     """
-#     def get(self, request, format=None):
-#         return Response('Simple Deployer')
-
-#     def post(self, request, format=None):
-#         return Response('Simple Deployer')
-
-#     def put(self, request, format=None):
-#         return Response('Simple Deployer')
-
-
-
-
-#  @api_view(['GET', 'PUT', 'DELETE'])
-#  def view1(request, format=None):
-#     execfile = shutil.which('terraform') 
-#     if (execfile != None):
-#         return Response('terraforming')
-
-#     return Response('Nothing requested')
-
-# @api_view(['GET', 'PUT', 'DELETE'])
-# def view2(request):
-#     return Response('MIKI LAI')
-
-# @api_view(['POST'])
-# def view3(request):
-#     return Response('MIKI LAI')
