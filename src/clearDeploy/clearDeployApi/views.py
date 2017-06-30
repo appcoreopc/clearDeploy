@@ -65,7 +65,8 @@ class AccessKey(generics.GenericAPIView):
 def api_root(request, format=None):
     return Response({
         'deploy': reverse('deploy-list', request=request, format=format),
-        'simple': reverse('simple-list', request=request, format=format)
+        'simple': reverse('simple-list', request=request, format=format),
+        'awslambda': reverse('awslambda', request=request, format=format)
     })
 
 
