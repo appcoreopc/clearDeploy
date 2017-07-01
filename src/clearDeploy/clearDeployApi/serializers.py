@@ -1,13 +1,12 @@
-
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 from django.db import models
+from clearDeployApi.models import AppUser
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
         fields = ('url', 'username', 'email', 'groups')
-
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -29,3 +28,13 @@ class SnippetSerializer(serializers.ModelSerializer):
         model = Snippet
         fields = ('id', 'title', 'code', 'linenos')
 
+class AppUserSerializer(serializers.ModelSerializer):
+   class Meta:
+     model = AppUser
+     fields = ('id', 'username', 'password', 'dateCreate')
+
+class AppsUserSerializer(serializers.ModelSerializer):
+    items = serializers.ListField(child=AppUserSerializer())
+    class Meta:
+     model = AppUser
+     fields = ('items')
