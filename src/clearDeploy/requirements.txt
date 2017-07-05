@@ -1,0 +1,4 @@
+python-terraform==0.8.6
+django==1.9
+djangorestframework==3.6.3
+GitPython==2.1.5
