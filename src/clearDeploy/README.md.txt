@@ -1,4 +1,8 @@
 
+-Provides reliable request 
+-Provide easy request 
+-Get the code and run it yourself. 
+
 - use code to provision 
   - use the remote enable image
   - enable ps remote 
