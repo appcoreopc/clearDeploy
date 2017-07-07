@@ -23,7 +23,6 @@ router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'groups', views.GroupViewSet)
 
-
 urlpatterns = [
     #url(r'^admin/', admin.site.urls),
     #url(r'^', include(router.urls)),
@@ -31,10 +30,8 @@ urlpatterns = [
     #url(r'^/test/product/', views.view1),
     #url(r'^/test/product/search/', views.view2),
     url(r'^$', views.api_root),
-    url(r'^deploy/highlight/$', views.SnippetHighlight.as_view()),
     url(r'^deploy/$', views.SimpleDeployer.as_view(), name='deploy-list'),
-    url(r'^deploy/simple/$', views.SimpleDeployer.as_view(), name='simple-list'),
-    url(r'^deploy/accesskey/$', views.AccessKey.as_view())
+    url(r'^deploy/simple/$', views.SimpleDeployer.as_view(), name='simple-list')
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
