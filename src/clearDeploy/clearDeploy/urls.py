@@ -31,7 +31,7 @@ urlpatterns = [
     #url(r'^/test/product/search/', views.view2),
     url(r'^$', views.api_root),
     url(r'^artifacts/$', views.ProjectArtifact.as_view(), name='artifact-list'),
-    url(r'^artifacts/(?P<username>\w{0,50})/$', views.ProjectArtifact.get),
+    url(r'^artifacts/(?P<appId>\d+)/$', views.ProjectArtifact.get),
     url(r'^deploy/$', views.SimpleDeployer.as_view(), name='deploy-list'),
     url(r'^deploy/simple/$', views.SimpleDeployer.as_view(), name='simple-list'),
 ]

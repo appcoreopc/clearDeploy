@@ -74,11 +74,15 @@ class ProjectArtifact(APIView):
     """
      Rest for project artifact
     """
-    def get(self, username):
-        result = Project.objects.all()
-        response = serializers.serialize('json', result)
-        print(username)
-        return JsonResponse(response, status=200, safe=False)
+    def get(self, appId):
+        if appId != None:
+            try:
+                result = Project.objects.get(id=int(appId))
+                # What serializing list with this?
+                response = serializers.serialize('json', [result])
+                return JsonResponse(response, status=200, safe=False)
+            except Exception as e:
+                return JsonResponse(str(e), status=509, safe=False)
 
     def post(self, request, format=None):
         return Response('POST Simple Deployer')
