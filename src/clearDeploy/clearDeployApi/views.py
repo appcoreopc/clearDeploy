@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
+from django.core import serializers
 
 from clearDeployApi.serializers import UserSerializer, GroupSerializer
 from rest_framework import status
@@ -14,7 +15,7 @@ from rest_framework.views import APIView
 from rest_framework import generics
 from rest_framework import renderers
 from rest_framework.reverse import reverse
-from clearDeployApi.models import AppUser
+from clearDeployApi.models import AppUser, Project, Artifact
 from clearDeployApi.serializers import AppUserSerializer, AppsUserSerializer
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
@@ -68,13 +69,16 @@ class SimpleDeployer(APIView):
     def put(self, request, format=None):
         return Response('PUT Simple Deployer')
 
+# 
 class ProjectArtifact(APIView):
     """
      Rest for project artifact
     """
     def get(self, username):
-        return JsonResponse({'get artifacts': 'more data coming'}, status=401)
-        #return Response('GET Project Artifacts')
+        result = Project.objects.all()
+        response = serializers.serialize('json', result)
+        print(username)
+        return JsonResponse(response, status=200, safe=False)
 
     def post(self, request, format=None):
         return Response('POST Simple Deployer')
