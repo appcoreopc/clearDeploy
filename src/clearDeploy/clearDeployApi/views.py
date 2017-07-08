@@ -1,6 +1,5 @@
 from shutil import which
 from django.shortcuts import render
-
 # Create your views here.
 from django.http import JsonResponse
 from django.contrib.auth.models import User, Group
@@ -66,10 +65,13 @@ class SimpleDeployer(APIView):
         # Update deployment status table
         # Run deployment scripts 
         # CleanUp
-        id = request.data['Id']
-        deployer = DeployHandler()
-        deployer.startDeploy(id)
-        return Response('POST Simple Deployer')
+        try:
+            id = request.data['Id']
+            deployer = DeployHandler()
+            deployer.startDeploy(id)
+            return Response('Deployment request completed', status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response('Error ' + str(e), status=status.HTTP_201_CREATED)
 
     def put(self, request, format=None):
         return Response('PUT Simple Deployer')
@@ -94,7 +96,6 @@ class ProjectArtifact(APIView):
     def put(self, request, format=None):
         return Response('PUT Simple Deployer')
 
-
 class AccessKey(generics.GenericAPIView):
     renderer_classes = (renderers.StaticHTMLRenderer,)
 
@@ -106,7 +107,6 @@ class AccessKey(generics.GenericAPIView):
 
     def put(self, request, format=None):
         return Response('Access  Key')
-
 
 class SnippetHighlight(generics.GenericAPIView):
     renderer_classes = (renderers.StaticHTMLRenderer,)
