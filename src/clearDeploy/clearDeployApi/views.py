@@ -2,7 +2,7 @@ from shutil import which
 from django.shortcuts import render
 
 # Create your views here.
-
+from django.http import JsonResponse
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
 
@@ -19,6 +19,15 @@ from clearDeployApi.serializers import AppUserSerializer, AppsUserSerializer
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 
+
+# For our root API
+@api_view(['GET'])
+def api_root(request, format=None):
+    return Response({
+        'deploy': reverse('deploy-list', request=request, format=format),
+        'simple': reverse('simple-list', request=request, format=format),
+        'artifacts': reverse('artifact-list', request=request, format=format),
+    })
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -38,7 +47,7 @@ class GroupViewSet(viewsets.ModelViewSet):
 
 class SimpleDeployer(APIView):
     """
-     Deploye 
+     Deployer 
     """
 
     def get(self, request, format=None):
@@ -59,6 +68,19 @@ class SimpleDeployer(APIView):
     def put(self, request, format=None):
         return Response('PUT Simple Deployer')
 
+class ProjectArtifact(APIView):
+    """
+     Rest for project artifact
+    """
+    def get(self, username):
+        return JsonResponse({'get artifacts': 'more data coming'}, status=401)
+        #return Response('GET Project Artifacts')
+
+    def post(self, request, format=None):
+        return Response('POST Simple Deployer')
+
+    def put(self, request, format=None):
+        return Response('PUT Simple Deployer')
 
 class AccessKey(generics.GenericAPIView):
     renderer_classes = (renderers.StaticHTMLRenderer,)
@@ -71,15 +93,6 @@ class AccessKey(generics.GenericAPIView):
 
     def put(self, request, format=None):
         return Response('Access  Key')
-
-# For our root API
-
-@api_view(['GET'])
-def api_root(request, format=None):
-    return Response({
-        'deploy': reverse('deploy-list', request=request, format=format),
-        'simple': reverse('simple-list', request=request, format=format)
-    })
 
 
 class SnippetHighlight(generics.GenericAPIView):

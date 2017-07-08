@@ -32,6 +32,11 @@ class Artifact(models.Model):
         self.date = timezone.now()
         self.save()
 
+class Project(models.Model):
+    Name = models.TextField()
+    Artifacts = models.ForeignKey(Artifact)
+    Active = models.NullBooleanField()
+
 class AppUser(models.Model):
     id = models.AutoField(primary_key=True)
     username = models.TextField()
