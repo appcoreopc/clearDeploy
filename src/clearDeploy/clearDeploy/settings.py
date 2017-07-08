@@ -116,6 +116,12 @@ USE_L10N = True
 USE_TZ = True
 
 
+# CORS Config
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = False
+CORS_ORIGIN_WHITELIST = ('localhost',) 
+CORS_REPLACE_HTTPS_REFERER = True
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
@@ -128,3 +134,4 @@ REST_FRAMEWORK = {
     ),
     'PAGE_SIZE': 10
 }
+

@@ -13,6 +13,13 @@ class PackageInfo(models.Model):
         self.version = kwargs['version']
         self.delete = kwargs['description']
 
+class DeploymentStatus(models.Model):
+    description = models.TextField()
+    version = models.TextField()
+    deploymentId = models.IntegerField()
+    status = models.IntegerField()
+    deployer = models.TextField()
+    
 class Artifact(models.Model):
     description = models.TextField()
     version = models.TextField()

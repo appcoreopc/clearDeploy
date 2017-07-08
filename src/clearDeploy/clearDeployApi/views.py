@@ -6,7 +6,7 @@ from django.http import JsonResponse
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
 from django.core import serializers
-
+from clearDeployApi.DeployHandler import DeployHandler
 from clearDeployApi.serializers import UserSerializer, GroupSerializer
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -19,7 +19,6 @@ from clearDeployApi.models import AppUser, Project, Artifact
 from clearDeployApi.serializers import AppUserSerializer, AppsUserSerializer
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
-
 
 # For our root API
 @api_view(['GET'])
@@ -50,7 +49,6 @@ class SimpleDeployer(APIView):
     """
      Deployer 
     """
-
     def get(self, request, format=None):
         result = AppUser.objects.all()
         if result is not None:
@@ -63,7 +61,15 @@ class SimpleDeployer(APIView):
             #return Response('GET Simple Deployer22222')
         return Response('GET Simple Deployer')
 
+    # Create a deployment
     def post(self, request, format=None):
+        # Update deployment status table
+        # Run deployment scripts 
+        # CleanUp
+        
+        deployer = DeployHandler()
+        deployer.startDeploy(1)
+        
         return Response('POST Simple Deployer')
 
     def put(self, request, format=None):
@@ -78,17 +84,17 @@ class ProjectArtifact(APIView):
         if appId != None:
             try:
                 result = Project.objects.get(id=int(appId))
-                # What serializing list with this?
                 response = serializers.serialize('json', [result])
                 return JsonResponse(response, status=200, safe=False)
             except Exception as e:
                 return JsonResponse(str(e), status=509, safe=False)
-
+    
     def post(self, request, format=None):
         return Response('POST Simple Deployer')
 
     def put(self, request, format=None):
         return Response('PUT Simple Deployer')
+
 
 class AccessKey(generics.GenericAPIView):
     renderer_classes = (renderers.StaticHTMLRenderer,)
