@@ -66,10 +66,9 @@ class SimpleDeployer(APIView):
         # Update deployment status table
         # Run deployment scripts 
         # CleanUp
-        
+        id = request.data['Id']
         deployer = DeployHandler()
-        deployer.startDeploy(1)
-        
+        deployer.startDeploy(id)
         return Response('POST Simple Deployer')
 
     def put(self, request, format=None):

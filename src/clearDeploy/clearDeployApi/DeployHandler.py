@@ -4,9 +4,8 @@ class DeployHandler:
     def startDeploy(self, artifactId):
         self.updateDeploymentStatus(artifactId)
         
-
-        
     def updateDeploymentStatus(self, artifactId):
+        print(artifactId)
         if artifactId == -1:
             ds = DeploymentStatus()
             ds.deployer = "Default"
