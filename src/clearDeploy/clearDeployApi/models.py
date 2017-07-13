@@ -9,10 +9,6 @@ class PackageInfo(models.Model):
     artifactProviderName = models.TextField()
     description = models.TextField()
 
-    def __init__(self, **kwargs):
-        self.version = kwargs['version']
-        self.delete = kwargs['description']
-
 class DeploymentStatus(models.Model):
     description = models.TextField()
     version = models.TextField()
@@ -24,14 +20,10 @@ class Artifact(models.Model):
     description = models.TextField()
     version = models.TextField()
     packagePath = models.TextField()
-    dateCreated = models.DateTimeField()
-    dateDeployed = models.DateTimeField()
+    dateCreated = models.DateTimeField(null=True, blank=True)
+    dateDeployed = models.DateTimeField(null=True, blank=True)
     packageInfo = models.ForeignKey(PackageInfo)
-
-    def __init__(self, **kwargs):
-        self.description = kwargs['description']
-        self.version = kwargs['version']
-
+    
     def __str__(self):
         return self.description
 

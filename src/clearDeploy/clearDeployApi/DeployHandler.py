@@ -1,11 +1,31 @@
-from clearDeployApi.models import DeploymentStatus
+from clearDeployApi.models import DeploymentStatus, Artifact
+
 
 class DeployHandler: 
+
     def startDeploy(self, artifactId):
+        # update deployment status
         self.updateDeploymentStatus(artifactId)
-        
-    def updateDeploymentStatus(self, artifactId):
-        print(artifactId)
+        # get the type of deployment 
+        self.getDeploymentInfo(artifactId)
+    
+    def getDeploymentInfo(self, artifactId):
+        artifact = Artifact.objects.get(pk = artifactId)
+        if artifact is not None: 
+            artifactType = artifact.packageInfo
+            if artifactType is not None: 
+                if artifactType.artifactProviderName == "Docker":
+                    # run docker 
+                    print("runnng docker")
+                elif artifactType.artifactProviderName == "Kurbenetes":
+                    # run kurbenetes
+                    print("running kurbenetes")
+                elif artifactType.artifactProviderName == "AWS":
+                    # run kurbenetes
+                    print("running kurbenetes")
+
+
+    def updateDeploymentStatus(self, artifactId, status = 1):
         if artifactId == -1:
             ds = DeploymentStatus()
             ds.deployer = "Default"
