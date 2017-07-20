@@ -1,17 +1,27 @@
 
-import subprocess
+import subprocess, os 
 import shutil 
 
 class DockerCommand:
-    
+
     DOCKER = "docker"
     DOCKER_COMPOSE = "docker-compose"
     DOCKER_COMPOSE_UP = "up"
-    DOCKER_COMPOSE_UP = "down"
+    DOCKER_COMPOSE_DOWN = "down"
 
     def run(self, artifact):
-        dockerExecutable = shutil.which(DOCKER)
+        dockerExecutable = shutil.which(self.DOCKER)
         if dockerExecutable is not None: 
-          #checks if command line is available 
-            dockerProcess = subprocess.Popen(DOCKER_COMPOSE_UP, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-            result = dockerProcess.wait()
+            try:    
+                print(artifact.packagePath)
+                os.chdir(artifact.packagePath)
+                cmdParam = [self.DOCKER_COMPOSE, self.DOCKER_COMPOSE_UP]
+                print(self.DOCKER_COMPOSE)
+                print(self.DOCKER_COMPOSE_UP)
+                dockerProcess = subprocess.call(cmdParam)
+                #result = dockerProcess.wait()
+                if dockerProcess == 0: 
+                        print("program executed successfully.")   
+            except ValueError as e: 
+                        print("ops.. " + str(e))
+            

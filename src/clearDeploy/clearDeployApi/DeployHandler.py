@@ -1,5 +1,5 @@
 from clearDeployApi.models import DeploymentStatus, Artifact
-
+from clearDeployApi.DockerCommand import DockerCommand
 
 class DeployHandler: 
 
@@ -15,6 +15,8 @@ class DeployHandler:
             artifactType = artifact.packageInfo
             if artifactType is not None: 
                 if artifactType.artifactProviderName == "Docker":
+                    dc = DockerCommand()
+                    dc.run(artifact)
                     # run docker 
                     print("runnng docker")
                 elif artifactType.artifactProviderName == "Kurbenetes":
